@@ -83,11 +83,12 @@ public final class WordFrequencyCounter {
 	 * 
 	 * @param args The first element should contain the path to a text file.
 	 */
+	 /*
 	public static void main(String[] args) {
 		File file = new File("C:/Users/Dillon/workspace3/Assignment 3/Subdomains2.txt");
 		List<String> words = Utilities.tokenizeFile(file);
 		List<Frequency> frequencies = computeWordFrequencies(words);
 		Utilities.printFrequencies(frequencies);
-	}
+	}*/
 }
 

@@ -1,7 +1,5 @@
 package ir.assignments.three;
 
-import java.io.File;
-import java.util.List;
 import java.util.Timer;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
@@ -15,7 +13,7 @@ public class Controller {
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 		 String crawlStorageFolder = "C:/Users/Dillon/workspace/Assignment 3/crawldata";
-         int numberOfCrawlers = 7;
+         int numberOfCrawlers = 10;
 
          CrawlConfig config = new CrawlConfig();
          config.setCrawlStorageFolder(crawlStorageFolder);
@@ -30,7 +28,7 @@ public class Controller {
 		CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
 		
 		// For the 300ms between page requests?
-		Timer saveStatsTimer = new Timer();
+		Timer t = new Timer();
 		
 
 
@@ -46,8 +44,7 @@ public class Controller {
           * Start the crawl. This is a blocking operation, meaning that your code
           * will reach the line after this only when crawling is finished.
           */
-         controller.start(MyCrawler.class, numberOfCrawlers);  
-         
+         controller.start(Crawler.class, numberOfCrawlers);  
 	}
 
 }
