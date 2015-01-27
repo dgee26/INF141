@@ -57,23 +57,23 @@ public class Utilities {
 		Frequency fr = new Frequency(s, n);
 		// Checks to see if the list of frequencies is not empty
 		// Will get first value of the list and is used later to determine a two gram list or word list
-		if (frequencies.size() > 0){		
-			fr = frequencies.get(0);
-		}
+		//if (frequencies.size() > 0){		
+		//	fr = frequencies.get(0);
+		//}
 		
-		String t = fr.getText();
+		//String t = fr.getText();
 		//Checks to see if there is a space inside words indicating two or more words stored in a Frequency entry
 		// If there is multiple words, print 2-gram. If not, item
-		if (t.contains(" ")){
+		/*if (t.contains(" ")){
 			System.out.println("Total 2-gram count:" + " " + total);
 			System.out.println("Unique 2-gram count:" + " " + unique);
 			System.out.println();
 		}
-		else{
-			System.out.println("Total item count:" + " " + total);
-			System.out.println("Unique item count:" + " " + unique);
+		else{*/
+			//System.out.println("Total item count:" + " " + total);
+			System.out.println("Unique url count:" + " " + unique);
 			System.out.println();
-		}
+		//}
 		
 		// Gets word and count stored in array
 		for (int i = 0; i<frequencies.size(); i++){

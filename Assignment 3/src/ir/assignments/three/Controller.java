@@ -1,5 +1,7 @@
 package ir.assignments.three;
 
+import java.io.File;
+import java.util.List;
 import java.util.Timer;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
@@ -30,7 +32,6 @@ public class Controller {
 		// For the 300ms between page requests?
 		Timer saveStatsTimer = new Timer();
 		
-		
 
 
          /*
@@ -46,6 +47,7 @@ public class Controller {
           * will reach the line after this only when crawling is finished.
           */
          controller.start(MyCrawler.class, numberOfCrawlers);  
+         
 	}
 
 }

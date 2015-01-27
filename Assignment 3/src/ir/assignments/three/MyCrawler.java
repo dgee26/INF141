@@ -15,6 +15,9 @@ import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
 
 public class MyCrawler extends WebCrawler{
+	
+	private List<String> list = new ArrayList<String>();
+	
 	//Used documentation and example code from https://code.google.com/p/crawler4j/
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g" 
             + "|png|tiff?|mid|mp2|mp3|mp4"
@@ -29,10 +32,14 @@ public class MyCrawler extends WebCrawler{
 
 	@Override
     public void visit(Page page) { 
-			List<String> list = new ArrayList<String>();
+			
             String url = page.getWebURL().getURL();
-            list.add(url);
-            System.out.println(list);
+            System.out.println("");
+            try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Subdomains2.txt", true)))) {
+                out.println(url);
+            }catch (IOException e) {
+            	System.out.println("IOException");
+            }
             System.out.println("URL: " + url);
 
             if (page.getParseData() instanceof HtmlParseData) {
