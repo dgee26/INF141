@@ -9,6 +9,8 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
 public class Controller {
+	
+	public static long totalTime = 0;
 
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
@@ -17,7 +19,8 @@ public class Controller {
 
          CrawlConfig config = new CrawlConfig();
          config.setCrawlStorageFolder(crawlStorageFolder);
-
+         config.setUserAgentString("UCI Inf131-CS121 crawler 61996254");
+         config.setPolitenessDelay(300);
          /*
           * Instantiate the controller for this crawl.
           */
@@ -27,8 +30,7 @@ public class Controller {
 		
 		CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
 		
-		// For the 300ms between page requests?
-		Timer t = new Timer();
+		// For the 300ms between page requests
 		
 
 
@@ -44,7 +46,10 @@ public class Controller {
           * Start the crawl. This is a blocking operation, meaning that your code
           * will reach the line after this only when crawling is finished.
           */
-         controller.start(Crawler.class, numberOfCrawlers);  
+         long start = System.currentTimeMillis()/1000;
+         controller.start(MyCrawler.class, numberOfCrawlers);  
+         long end = System.currentTimeMillis()/1000;
+         totalTime = end - start;
 	}
 
 }

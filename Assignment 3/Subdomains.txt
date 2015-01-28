@@ -1,1 +1,9 @@
-Put your ordered list of subdomains here.
+http://www.ics.uci.edu/, 4
+http://www.ics.uci.edu/about/, 4
+http://www.ics.uci.edu/about/about_mission.php, 4
+http://www.ics.uci.edu/involved/information_session, 4
+http://www.ics.uci.edu/about/bren/index.php, 3
+http://www.ics.uci.edu/involved/project_class, 3
+http://www.ics.uci.edu/involved/tech_talk.php, 3
+http://www.ics.uci.edu/involved/information_session.php, 1
+http://www.ics.uci.edu/involved/leadership_council, 1

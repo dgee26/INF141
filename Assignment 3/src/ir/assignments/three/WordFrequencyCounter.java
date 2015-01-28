@@ -29,14 +29,14 @@ public final class WordFrequencyCounter {
 			int n = 1;								// Frequency number default is 1
 			String s = words.get(i); 				//Gets word from list
 			//Not include main domain in results
-			if (!s.equals("http://www.ics.uci.edu")){
+			//if (!s.equals("http://www.ics.uci.edu")){
 				Frequency f = new Frequency(s,n);      	//Creates new entry 
 				boolean b = existsInList(list, s);
 				// If word does not already exist in list, then add to list
 				if (!b){
 					list.add(f);						// Add to arraylist
 				}
-			}
+			//}
 		}
 		
 		AlphabeticalOrder ordered = new AlphabeticalOrder();
@@ -83,12 +83,12 @@ public final class WordFrequencyCounter {
 	 * 
 	 * @param args The first element should contain the path to a text file.
 	 */
-	 /*
+	 
 	public static void main(String[] args) {
 		File file = new File("C:/Users/Dillon/workspace3/Assignment 3/Subdomains2.txt");
 		List<String> words = Utilities.tokenizeFile(file);
 		List<Frequency> frequencies = computeWordFrequencies(words);
 		Utilities.printFrequencies(frequencies);
-	}*/
+	}
 }
 
