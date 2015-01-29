@@ -3,12 +3,18 @@ package ir.assignments.three;
 import ir.assignments.three.Frequency;
 import ir.assignments.three.Utilities;
 
+
+
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Counts the total number of words and their frequencies in a text file.
@@ -20,44 +26,31 @@ public final class WordFrequencyCounter {
 	public static List<Frequency> computeWordFrequencies(List<String> words) {
 		// TODO Write body!	
 		List<Frequency> list = new ArrayList<Frequency>();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		// Checks if list is empty and if it is, returns empty list
 		if (words == null){
 			return list;
 		}
 		//Goes through List<String>
 		for (int i = 0; i<words.size(); i++){
-			int n = 1;								// Frequency number default is 1
-			String s = words.get(i); 				//Gets word from list
-			//Not include main domain in results
-			//if (!s.equals("http://www.ics.uci.edu")){
-				Frequency f = new Frequency(s,n);      	//Creates new entry 
-				boolean b = existsInList(list, s);
-				// If word does not already exist in list, then add to list
-				if (!b){
-					list.add(f);						// Add to arraylist
-				}
-			//}
+			int n = 1;	
+			String s = words.get(i);// Frequency number default is 1
+			if (map.containsKey(s)){
+				int frequency = map.get(s);
+				map.put(s, frequency + 1);
+			}
+			else{
+				map.put(s, n);
+			}
 		}
 		
+		for (String word: map.keySet()){
+			Frequency f = new Frequency(word, map.get(word));
+			list.add(f);
+		}
 		AlphabeticalOrder ordered = new AlphabeticalOrder();
 		Collections.sort(list, ordered);						//Sorts alphabetically
 		return list;											//returns list of words
-	}
-	
-	// Method that checks for duplicate words and then increase the frequency of that word by 1
-	// Will return true if duplicate is found
-	public static boolean existsInList(List<Frequency> lF, String s){
-		Iterator<Frequency> iterate = lF.iterator();      
-		while(iterate.hasNext()){
-			Frequency fr = iterate.next();
-			// Compares word from words list and word from list of words/frequencies
-			// Compares only the words
-			if (s.equals(fr.getText())){
-				fr.incrementFrequency();        //Increments the frequency of existing word 
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	
@@ -85,10 +78,11 @@ public final class WordFrequencyCounter {
 	 */
 	 
 	public static void main(String[] args) {
-		File file = new File("C:/Users/Dillon/workspace3/Assignment 3/Subdomains2.txt");
+		/*File file = new File("C:/Users/Dillon/workspace3/Assignment 3/Subdomains2.txt");
 		List<String> words = Utilities.tokenizeFile(file);
 		List<Frequency> frequencies = computeWordFrequencies(words);
-		Utilities.printFrequencies(frequencies);
+		Utilities.printFrequencies(frequencies);*/
+		//System.out.println(Utilities.wordCounter);
 	}
 }
 

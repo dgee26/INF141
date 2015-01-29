@@ -1,5 +1,11 @@
 package ir.assignments.three;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import java.util.Timer;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
@@ -50,6 +56,35 @@ public class Controller {
          controller.start(MyCrawler.class, numberOfCrawlers);  
          long end = System.currentTimeMillis()/1000;
          totalTime = end - start;
+         
+         //Implement answers
+         
+         //Answer for question #1
+         //Still needs to print to answers.txt
+         try{
+ 			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("answers.txt", true)));
+ 			pw.println(totalTime);
+            pw.close();
+         }catch (IOException e) {
+         	System.out.println("IOException");
+         }
+         
+         //Answer for question #2
+         //Stil needs to print to answers.txt
+         File file = new File("C:/Users/Dillon/workspace3/Assignment 3/Subdomains2.txt");
+         List<String> words = Utilities.tokenizeFile(file);
+         Utilities.countUrl(words);
+ 		 
+ 		 //Answer for question #3
+ 		 List<Frequency> frequencies = WordFrequencyCounter.computeWordFrequencies(words);
+ 		 Utilities.printFrequencies(frequencies);
+ 		 
+ 		 //Answer for question #4
+ 		 Ranking.longestPage(Crawler.textMap);
+         
+ 		 //Answer for questions #5
+ 		 List<Frequency> lf = Ranking.topWords(Crawler.textPages);
+ 		 Utilities.print500(lf);
 	}
 
 }

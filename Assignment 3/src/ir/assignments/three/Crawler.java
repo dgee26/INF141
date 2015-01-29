@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -24,6 +25,8 @@ public class Crawler extends WebCrawler{
 	 * This methods performs a crawl starting at the specified seed URL. Returns a
 	 * collection containing all URLs visited during the crawl.
 	 */
+	public static HashMap<String, Integer> textMap = new HashMap<String, Integer>();
+	public static List<String> textPages = new ArrayList<String>();
 	
 	//Possibly try implementing a HashMap for optimality
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g" 
@@ -47,19 +50,17 @@ public class Crawler extends WebCrawler{
             if (page.getParseData() instanceof HtmlParseData) {
                     HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
                     String text = htmlParseData.getText();
-                    System.out.println(text);
-                    String html = htmlParseData.getHtml();
-                    List<WebURL> links = htmlParseData.getOutgoingUrls();
-                    
+                    int wordCounter = Ranking.countText(text);
+                    textMap.put(url, wordCounter);
+                    textPages.add(text);
                     System.out.println("Text length: " + text.length());
-                    System.out.println("Html length: " + html.length());
-                    System.out.println("Number of outgoing links: " + links.size());
             }
     }
 
 	public static void printDomains (String seedURL){
-		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Subdomains2.txt", true)))) {
-            out.println(seedURL);
+		try {
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("Subdomains2.txt", true)));
+            pw.println(seedURL);
             
         }catch (IOException e) {
         	System.out.println("IOException");
