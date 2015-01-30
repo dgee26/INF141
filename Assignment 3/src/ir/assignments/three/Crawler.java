@@ -1,10 +1,5 @@
 package ir.assignments.three;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,6 +22,7 @@ public class Crawler extends WebCrawler{
 	 */
 	public static HashMap<String, Integer> textMap = new HashMap<String, Integer>();
 	public static List<String> textPages = new ArrayList<String>();
+	public static List<String> urlList = new ArrayList<String>();
 	
 	//Possibly try implementing a HashMap for optimality
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g" 
@@ -37,14 +33,15 @@ public class Crawler extends WebCrawler{
 	@Override
     public boolean shouldVisit(WebURL url) {
             String href = url.getURL().toLowerCase();
-            return !FILTERS.matcher(href).matches() && href.startsWith("http://www.ics.uci.edu/");
+            //startsWith
+            return !FILTERS.matcher(href).matches() && href.startsWith("http://www.ics.uci.edu/about/");
     }
 
 	@Override
     public void visit(Page page) { 
 			
             String url = page.getWebURL().getURL();
-            printDomains(url);
+            urlList.add(url);
             System.out.println("URL: " + url);
 
             if (page.getParseData() instanceof HtmlParseData) {
@@ -57,16 +54,7 @@ public class Crawler extends WebCrawler{
             }
     }
 
-	public static void printDomains (String seedURL){
-		try {
-			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("Subdomains2.txt", true)));
-            pw.println(seedURL);
-            
-        }catch (IOException e) {
-        	System.out.println("IOException");
-        }
-
-	}
+	
 	
 	public static Collection<String> crawl(String seedURL) {
 		return null;

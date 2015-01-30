@@ -31,7 +31,7 @@ public class Utilities {
 				// then do not add blank character
 				if (!s.equals("")){
 					System.out.println(s);
-					a.add(s); 									//Add cleaned word to arraylist
+					a.add(s); 								
 				}
 				
 			}
@@ -46,42 +46,36 @@ public class Utilities {
 	}
 	
 	
-	public static void clear (){
+	public static void clearSubdomain (){
 		File file = new File("Subdomains.txt");
 		file.delete();
 	}
 	
-	public static int countUrl(List<String> url) throws IOException{
-		System.out.println("Entering");
+	public static void clearCommonWords (){
+		File file = new File("CommonWords.txt");
+		file.delete();
+	}
+	
+	public static int countUrl(List<String> url){
 		int unique = 0;
-		
 		for (int i = 0; i<url.size(); i++){
 			unique++; 								//Increments unique total #
-
 		}
-		
-		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("answers.txt", true)));
-		pw.println("Unique url count:" + " " + unique);
-		pw.close();
-		System.out.println("Unique url count:" + " " + unique);
-		System.out.println();
-		
 		return unique;
 	}
 	
 	public static void printFrequencies(List<Frequency> frequencies) {
-		// TODO Write body!
-		//int total = 0;
-		
-		clear();
-		
+		clearSubdomain();
+		File file = new File("C:/Users/Dillon/workspace3/Assignment 3/Subdomains.txt");
 		// Gets word and count stored in array
 		try{
-			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("Subdomains.txt", true)));
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+			System.out.println("3.) ");
 			for (int i = 0; i<frequencies.size(); i++){
 				Frequency f = frequencies.get(i);
 				String s = f.getText();
 				int n = f.getFrequency();
+				System.out.println(s + ", " + n);
 				pw.println(s + ", " + n);
 			}
             pw.close();
@@ -94,29 +88,31 @@ public class Utilities {
 	
 	public static void print500(List<Frequency> frequencies) {
 		// TODO Write body!
-		//int total = 0;
-		System.out.println("Entering");
+		int rank = 0;
 		int unique = 0;
 
 		for (int i = 0; i<frequencies.size(); i++){
 			unique++; 								//Increments unique total #
 		}
 		
-			System.out.println("Unique url count:" + " " + unique);
+			System.out.println("5.) Unique word count:" + " " + unique);
 			System.out.println();
-		//}
-		clear();
+		
+		clearCommonWords();
 		
 		try{
 			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("CommonWords.txt", true)));
 			for (int i = 0; i<frequencies.size(); i++){
+				rank++;
 				Frequency f = frequencies.get(i);
 				String s = f.getText();
 				int n = f.getFrequency();
-				pw.println(s + " " + n);
 				if (i >= 500){
 					break;
 				}
+				System.out.println("#" + rank + " " + s + " " + n);
+				pw.println(rank + ".) " + s + " " + n);
+				
 			}
             pw.close();
         }catch (IOException e) {

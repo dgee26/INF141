@@ -4,17 +4,11 @@ import ir.assignments.three.Frequency;
 import ir.assignments.three.Utilities;
 
 
-
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Counts the total number of words and their frequencies in a text file.
@@ -78,11 +72,11 @@ public final class WordFrequencyCounter {
 	 */
 	 
 	public static void main(String[] args) {
-		/*File file = new File("C:/Users/Dillon/workspace3/Assignment 3/Subdomains2.txt");
-		List<String> words = Utilities.tokenizeFile(file);
-		List<Frequency> frequencies = computeWordFrequencies(words);
-		Utilities.printFrequencies(frequencies);*/
-		//System.out.println(Utilities.wordCounter);
+		/*List<String> test = new ArrayList<String>();
+		String s = " jfdjdf fsdg sdfgkfdg asg asdg asdg asdg asdg asdg !!! AFE%#^ @$adAD";
+		test.add(s);
+		System.out.println(test);
+		Ranking.topWords(test);*/
 	}
 }
 

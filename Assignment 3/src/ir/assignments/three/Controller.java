@@ -1,12 +1,6 @@
 package ir.assignments.three;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.Timer;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -21,7 +15,7 @@ public class Controller {
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 		 String crawlStorageFolder = "C:/Users/Dillon/workspace/Assignment 3/crawldata";
-         int numberOfCrawlers = 10;
+         int numberOfCrawlers = 20;
 
          CrawlConfig config = new CrawlConfig();
          config.setCrawlStorageFolder(crawlStorageFolder);
@@ -53,34 +47,27 @@ public class Controller {
           * will reach the line after this only when crawling is finished.
           */
          long start = System.currentTimeMillis()/1000;
-         controller.start(MyCrawler.class, numberOfCrawlers);  
+         controller.start(Crawler.class, numberOfCrawlers);  
          long end = System.currentTimeMillis()/1000;
          totalTime = end - start;
          
          //Implement answers
          
          //Answer for question #1
-         //Still needs to print to answers.txt
-         try{
- 			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("answers.txt", true)));
- 			pw.println(totalTime);
-            pw.close();
-         }catch (IOException e) {
-         	System.out.println("IOException");
-         }
-         
+         //Still needs to print to answers.txt?
+ 		 System.out.println("1.) " + totalTime + " seconds");
+
          //Answer for question #2
-         //Stil needs to print to answers.txt
-         File file = new File("C:/Users/Dillon/workspace3/Assignment 3/Subdomains2.txt");
-         List<String> words = Utilities.tokenizeFile(file);
-         Utilities.countUrl(words);
+         //Stinil needs to print to answers.txt
+ 		 int urlCount = Utilities.countUrl(Crawler.urlList);
+ 		 System.out.println("2.) Unique url count = " + urlCount);
  		 
  		 //Answer for question #3
- 		 List<Frequency> frequencies = WordFrequencyCounter.computeWordFrequencies(words);
+ 		 List<Frequency> frequencies = WordFrequencyCounter.computeWordFrequencies(Crawler.urlList);
  		 Utilities.printFrequencies(frequencies);
  		 
  		 //Answer for question #4
- 		 Ranking.longestPage(Crawler.textMap);
+ 		 System.out.println("4.) " + Ranking.longestPage(Crawler.textMap) + "is the longest page in the domain");
          
  		 //Answer for questions #5
  		 List<Frequency> lf = Ranking.topWords(Crawler.textPages);
