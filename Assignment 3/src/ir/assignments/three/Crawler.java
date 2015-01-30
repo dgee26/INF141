@@ -34,14 +34,14 @@ public class Crawler extends WebCrawler{
     public boolean shouldVisit(WebURL url) {
             String href = url.getURL().toLowerCase();
             //startsWith
-            return !FILTERS.matcher(href).matches() && href.startsWith("http://www.ics.uci.edu/about/");
+            return !FILTERS.matcher(href).matches() && href.startsWith("http://www.ics.uci.edu/about");
     }
 
 	@Override
     public void visit(Page page) { 
 			
             String url = page.getWebURL().getURL();
-            urlList.add(url);
+            crawl(url);
             System.out.println("URL: " + url);
 
             if (page.getParseData() instanceof HtmlParseData) {
@@ -57,7 +57,8 @@ public class Crawler extends WebCrawler{
 	
 	
 	public static Collection<String> crawl(String seedURL) {
-		return null;
+		urlList.add(seedURL);
+		return urlList;
 		// TODO implement me
 		
 	}

@@ -44,6 +44,7 @@ public final class WordFrequencyCounter {
 		}
 		AlphabeticalOrder ordered = new AlphabeticalOrder();
 		Collections.sort(list, ordered);						//Sorts alphabetically
+		//System.out.println(list);
 		return list;											//returns list of words
 	}
 	

@@ -75,7 +75,6 @@ public class Utilities {
 				Frequency f = frequencies.get(i);
 				String s = f.getText();
 				int n = f.getFrequency();
-				System.out.println(s + ", " + n);
 				pw.println(s + ", " + n);
 			}
             pw.close();

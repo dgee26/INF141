@@ -16,11 +16,11 @@ public class Ranking {
 	//***********SEE IF CAN OPTIMIZE ANYTHING***************************
 	
 	public static int countText(String text) {
-		String [] sa = text.split(" ");
+		String [] sa = text.split("\\W+\\s*|\\s+\\W+|\\_+");
 		int wordCounter = 0;
 		
 		for (int i = 0; i<sa.length; i++){
-			sa[i] = sa[i].toLowerCase();		 				//converts string to lowercase
+			sa[i] = sa[i].toLowerCase();		 				
 			sa[i] = sa[i].replaceAll("[^a-zA-Z0-9]","");
 			if (!sa[i].equals("")){
 				wordCounter++;	
@@ -31,16 +31,16 @@ public class Ranking {
 	
 	public static List<String> tokenizeWords(String text) {
 		List<String> list = new ArrayList<String>();
-		String [] sa = text.split(" ");
+		String [] sa = text.split("\\W+\\s*|\\s+\\W+|\\_+");
 		
 		for (int i = 0; i<sa.length; i++){
-			sa[i] = sa[i].toLowerCase();		 				//converts string to lowercase
+			sa[i] = sa[i].toLowerCase();		 				
 			sa[i] = sa[i].replaceAll("[^a-zA-Z0-9]","");
 			if (!sa[i].equals("") && compareCommonWords(sa[i])){
 				list.add(sa[i]);
 			}	
 		}
-		System.out.println(list);
+		//System.out.println(list);
 		return list;
 	}
 	
