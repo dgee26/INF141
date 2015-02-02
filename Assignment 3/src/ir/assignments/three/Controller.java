@@ -14,42 +14,29 @@ public class Controller {
 
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
+		 //Creates storage folder and intializes number of crawlers
 		 String crawlStorageFolder = "C:/Users/Dillon/workspace/Assignment 3/crawldata";
          int numberOfCrawlers = 20;
 
          CrawlConfig config = new CrawlConfig();
          config.setCrawlStorageFolder(crawlStorageFolder);
-         config.setUserAgentString("UCI Inf131-CS121 crawler 61996254");
-         config.setPolitenessDelay(300);
-         /*
-          * Instantiate the controller for this crawl.
-          */
+         config.setUserAgentString("UCI Inf131-CS121 crawler 61996254");	//User agent
+         config.setPolitenessDelay(300);				//For politeness delay
+         
+         //Instantiates the controller
          PageFetcher pageFetcher = new PageFetcher(config);
          RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
          RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
 		
-		CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
-		
-		// For the 300ms between page requests
-		
-
-
-         /*
-          * For each crawl, you need to add some seed urls. These are the first
-          * URLs that are fetched and then the crawler starts following links
-          * which are found in these pages
-          */
-         
+		 CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
+		 
+		 //Add seed for ics.uci.edu domains
          controller.addSeed("http://www.ics.uci.edu/");
-
-         /*
-          * Start the crawl. This is a blocking operation, meaning that your code
-          * will reach the line after this only when crawling is finished.
-          */
-         long start = System.currentTimeMillis()/1000;
-         controller.start(Crawler.class, numberOfCrawlers);  
-         long end = System.currentTimeMillis()/1000;
-         totalTime = end - start;
+         
+         long start = System.currentTimeMillis()/1000;		 //Start timer 
+         controller.start(Crawler.class, numberOfCrawlers);  //Starts crawler
+         long end = System.currentTimeMillis()/1000;		 //End timer
+         totalTime = end - start;							 //Calculates time
          
          //Implement answers
          

@@ -17,6 +17,7 @@ public final class WordFrequencyCounter {
 	
 	public WordFrequencyCounter() {}
 	
+	// Used for counting unique urls
 	public static List<Frequency> computeWordFrequencies(List<String> words) {
 		// TODO Write body!	
 		List<Frequency> list = new ArrayList<Frequency>();
@@ -71,7 +72,7 @@ public final class WordFrequencyCounter {
 	 * 
 	 * @param args The first element should contain the path to a text file.
 	 */
-	 
+	 // Used for testing purposes
 	public static void main(String[] args) {
 		/*List<String> test = new ArrayList<String>();
 		String s = " jfdjdf fsdg sdfgkfdg asg asdg asdg asdg asdg asdg !!! AFE%#^ @$adAD";

@@ -16,46 +16,19 @@ import java.util.Scanner;
  */
 public class Utilities {
 	
-	public static ArrayList<String> tokenizeFile(File input) {
-		// TODO Write body!
-		// Need to add worst case error catches
-		ArrayList<String> a = new ArrayList<String>();
-		//HashMap hm = new HashMap();
-		try {
-			Scanner scan = new Scanner(new FileReader(input));  //Creates file scanner
-			//Iterate through text file
-			while (scan.hasNext()){
-				String s = scan.next();     					//Gets next string
-				s = s.toLowerCase();		 					//converts string to lowercase
-				// If a blank character is found because of the replaceAll method
-				// then do not add blank character
-				if (!s.equals("")){
-					System.out.println(s);
-					a.add(s); 								
-				}
-				
-			}
-			scan.close();
-		}
-		catch (FileNotFoundException e) {
-			//Catches error if file cannot be found or does not exist
-	        e.printStackTrace();				
-	    }
-		
-		return a;
-	}
-	
-	
+	// Clears subdomain file
 	public static void clearSubdomain (){
 		File file = new File("Subdomains.txt");
 		file.delete();
 	}
 	
+	//Clears list of ranked common words file
 	public static void clearCommonWords (){
 		File file = new File("CommonWords.txt");
 		file.delete();
 	}
 	
+	//Counts the unique urls
 	public static int countUrl(List<String> url){
 		int unique = 0;
 		for (int i = 0; i<url.size(); i++){
@@ -64,6 +37,7 @@ public class Utilities {
 		return unique;
 	}
 	
+	//Prints unique frequencies to Subdomains.txt in formatted form
 	public static void printFrequencies(List<Frequency> frequencies) {
 		clearSubdomain();
 		File file = new File("C:/Users/Dillon/workspace3/Assignment 3/Subdomains.txt");
@@ -85,6 +59,7 @@ public class Utilities {
 		
 	}
 	
+	//Prints ranking of top 500 words
 	public static void print500(List<Frequency> frequencies) {
 		// TODO Write body!
 		int rank = 0;
@@ -93,7 +68,6 @@ public class Utilities {
 		for (int i = 0; i<frequencies.size(); i++){
 			unique++; 								//Increments unique total #
 		}
-		
 			System.out.println("5.) Unique word count:" + " " + unique);
 			System.out.println();
 		

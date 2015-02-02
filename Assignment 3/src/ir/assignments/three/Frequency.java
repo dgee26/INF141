@@ -1,5 +1,6 @@
 package ir.assignments.three;
 
+// Frequency class used from Assignment 2
 public final class Frequency {
 	private final String word;
 	private int frequency;

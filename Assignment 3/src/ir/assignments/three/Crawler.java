@@ -24,7 +24,7 @@ public class Crawler extends WebCrawler{
 	public static List<String> textPages = new ArrayList<String>();
 	public static List<String> urlList = new ArrayList<String>();
 	
-	//Possibly try implementing a HashMap for optimality
+	//Filter for these data types so ignored during crawl
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g" 
             + "|png|tiff?|mid|mp2|mp3|mp4"
             + "|wav|avi|mov|mpeg|ram|m4v|pdf" 
@@ -33,10 +33,10 @@ public class Crawler extends WebCrawler{
 	@Override
     public boolean shouldVisit(WebURL url) {
             String href = url.getURL().toLowerCase();
-            //startsWith
             return !FILTERS.matcher(href).matches() && href.startsWith("http://www.ics.uci.edu/about");
     }
-
+	
+	//Adds data such as url in either a List or a hashmap
 	@Override
     public void visit(Page page) { 
 			
@@ -55,7 +55,7 @@ public class Crawler extends WebCrawler{
     }
 
 	
-	
+	// Returns the list of urls visited
 	public static Collection<String> crawl(String seedURL) {
 		urlList.add(seedURL);
 		return urlList;
