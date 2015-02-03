@@ -15,7 +15,7 @@ public class Controller {
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 		 String crawlStorageFolder = "crawldata";
-         int numberOfCrawlers = 50;
+         int numberOfCrawlers = 20;
 
          CrawlConfig config = new CrawlConfig();
          config.setCrawlStorageFolder(crawlStorageFolder);
@@ -39,6 +39,9 @@ public class Controller {
           */
          
          controller.addSeed("http://www.ics.uci.edu/");
+         // Define here the root domain for which we need to look for the
+         // subdomains
+         Crawler.setSearchDomain("ics.uci.edu");
 
          /*
           * Start the crawl. This is a blocking operation, meaning that your code
@@ -65,25 +68,29 @@ public class Controller {
           * (Ignore English stop words, which can be found, for example, at http://www.ranks.nl/stopwords.) Submit the list of common words ordered by frequency (and alphabetically for words with the same frequency) in a file called CommonWords.txt.
           */
          //Answer for question #1
-         //Still needs to print to answers.txt?
+         // Print the results to answers.txt
  		 System.out.println("1.) " + totalTime + " seconds");
-
+ 		 Utilities.clearAnswersLog(); // Initialize the answers.txt
+ 		 Utilities.logAnswers("#1. Total Crawl Time: " + totalTime + " seconds");
          //Answer for question #2
-         //Stinil needs to print to answers.txt
+         
  		 int urlCount = Utilities.countUrl(Crawler.getUniqueUrls());
  		 System.out.println("2.) Unique url count = " + urlCount);
- 		 
+ 		 Utilities.logAnswers("#2. Unique URL count: " + urlCount);
  		 //Answer for question #3
+ 		Utilities.logAnswers("#3. See Subdomains.txt");
  		 List<Frequency> frequencies = Crawler.subdomainCount();
  		 Utilities.printFrequencies(frequencies);
  		 
  		 //Answer for question #4
  		 System.out.println("4.) " + Ranking.longestPage(Crawler.textMap) + "is the longest page in the domain");
-         
+         // Page with highest number of words
+ 		 String highRankPage = Ranking.longestPage(Crawler.textMap);
+ 		 Utilities.logAnswers("#4. Longest Page: " + highRankPage);
  		 //Answer for questions #5
  		 List<Frequency> lf = Ranking.topWords(Crawler.textPages);
  		 Utilities.print500(lf);
+ 		
 	}
 
 }
-
