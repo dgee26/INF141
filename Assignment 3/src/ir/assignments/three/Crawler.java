@@ -27,6 +27,7 @@ public class Crawler extends WebCrawler{
 	public static List<String> urlList = new ArrayList<String>();
 	public static Map<String, Integer> urlFreq = new TreeMap<String, Integer>();
 	public static Map<String, String> subdomainFreq = new TreeMap<String, String>();
+	public static String searchDomain = null;
 	//Possibly try implementing a HashMap for optimality
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g" 
             + "|png|tiff?|mid|mp2|mp3|mp4"
@@ -37,24 +38,25 @@ public class Crawler extends WebCrawler{
     public boolean shouldVisit(WebURL url) {
             String href = url.getURL().toLowerCase();
             //startsWith
-            return !FILTERS.matcher(href).matches() && href.contains(".ics.uci.edu");
+            return !FILTERS.matcher(href).matches() && href.contains(searchDomain);
     }
 
 	@Override
     public void visit(Page page) { 
 			
             String url = page.getWebURL().getURL();
+            String domain = page.getWebURL().getDomain();
+            // Get the subdomain
             String subdomain = page.getWebURL().getSubDomain();
-            // remove ics part from the subdomain name
-            subdomain = subdomain.substring(0, subdomain.indexOf(".ics"));
+            String fullDomain = subdomain + "." + domain;
+            subdomain = fullDomain.substring(0, fullDomain.indexOf("." + searchDomain));
+             // Debug
+            //System.out.println("URL:" + url);
+            //
             
-            // Debug
-            System.out.println("URL:" + url);
-            System.out.println("Subdomain:" + subdomain);
             crawl(url);
             logSubdomain(url, subdomain);
             //System.out.println("URL: " + url);
-            
             
             if (page.getParseData() instanceof HtmlParseData) {
                     HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
@@ -63,14 +65,18 @@ public class Crawler extends WebCrawler{
                     int wordCounter = Ranking.countText(text);
                     textMap.put(url, wordCounter);
                     textPages.add(text);
-                    //System.out.println("Text length: " + text.length());
+                    System.out.println("URL: " + url + " Text length: " + text.length());
             }
     }
+	public static void setSearchDomain(String domain){
+		searchDomain = domain;
+	}
 	// Counting Unique URLs in the 
-	public static Map<String, String> logSubdomain(String subdomain, String url){ 
-  		Integer freq = urlFreq.get(url);   
-  		if(freq == null){
-  			System.out.println("Adding:" + subdomain + " " + url);
+	public static Map<String, String> logSubdomain(String url, String subdomain){ 
+  		//System.out.println("Logging "+ url + "for Domain:" + subdomain);
+		String sd = subdomainFreq.get(url);   
+  		if(sd == null){
+  			// System.out.println("Adding:" + subdomain + " " + url);
   			subdomainFreq.put(url,subdomain);
   		}
 		return subdomainFreq;	 
@@ -87,7 +93,8 @@ public class Crawler extends WebCrawler{
 		for(String key: subdomainFreq.keySet()){
 			String subdomain = subdomainFreq.get(key);
 			//Create the sub domain unique URL count
-			Integer freq = sdfreq.get(subdomain);    
+			Integer freq = sdfreq.get(subdomain);
+			// System.out.println("Adding subdomain index" + subdomain);
 			sdfreq.put(subdomain, (freq==null) ? 1 : freq+1);
 		}
 		// Now that we processed the unique URL count for each subdomain
@@ -95,11 +102,9 @@ public class Crawler extends WebCrawler{
 		for(String key: sdfreq.keySet()){
 			sdList.add(new Frequency(key, sdfreq.get(key)));
 		}
+		System.out.println("# Unqiue Subdomains " + sdList.size());
 		return sdList;
 	}
-	// Log Unique URLs crawls. If same URL is crawled twice, it would record only
-	// once. Once all URLs are stored in the Treemap(which is automatically sorted,
-	// we will call getUniqueUrls to get a list of Unique URLs visited.
 	public static Map<String, Integer> crawl(String seedURL){ 
   		Integer freq = urlFreq.get(seedURL);    
 		urlFreq.put(seedURL, (freq==null) ? 1 : freq+1);
