@@ -1,5 +1,6 @@
 package ir.assignments.three;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,6 +29,8 @@ public class Crawler extends WebCrawler{
 	public static Map<String, Integer> urlFreq = new TreeMap<String, Integer>();
 	public static Map<String, String> subdomainFreq = new TreeMap<String, String>();
 	public static String searchDomain = null;
+	private HashMap<String, Integer> map = new HashMap<String, Integer>();
+
 	//Possibly try implementing a HashMap for optimality
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g" 
             + "|png|tiff?|mid|mp2|mp3|mp4"
@@ -37,8 +40,25 @@ public class Crawler extends WebCrawler{
 	@Override
     public boolean shouldVisit(WebURL url) {
             String href = url.getURL().toLowerCase();
-            //startsWith
-            return !FILTERS.matcher(href).matches() && href.contains(searchDomain);
+            if (FILTERS.matcher(href).matches()) {
+            	return false;
+            }
+            String curr = url.getDomain();    
+            if (curr == null || !href.contains(searchDomain)){
+                return false;
+            }
+            
+            try {
+				if (!intendToVisit(url.getURL())){
+				    return false;
+				}
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+            
+            return true;
     }
 
 	@Override
@@ -68,6 +88,28 @@ public class Crawler extends WebCrawler{
                     System.out.println("URL: " + url + " Text length: " + text.length());
             }
     }
+	
+	public boolean intendToVisit(String url) throws URISyntaxException {
+        // Determine if the page has been visited too many times (might be infinite loop)
+        String s = URLHelper.removeQuery(url);
+        if (s == null){
+                return true;
+        }
+
+        int count = 1;
+        if (this.map.containsKey(s)){
+                count = map.get(s);
+        }
+       
+        if (count >= 20){
+                return false; //visit single page at most 20 times (with different query strings)
+        }
+        // Update with another intent
+        this.map.put(s, count + 1);
+
+        return true;
+}
+
 	public static void setSearchDomain(String domain){
 		searchDomain = domain;
 	}

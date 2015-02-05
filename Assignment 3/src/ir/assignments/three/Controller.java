@@ -19,7 +19,7 @@ public class Controller {
 
          CrawlConfig config = new CrawlConfig();
          config.setCrawlStorageFolder(crawlStorageFolder);
-         config.setUserAgentString("UCI Inf131-CS121 crawler 61996254 72557866");
+         config.setUserAgentString("UCI Inf131-CS121 crawler 61996254 72557866 30557904");
          // For the 300ms between page requests
          config.setPolitenessDelay(300);
          config.setMaxDepthOfCrawling(-1);
