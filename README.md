@@ -1,9 +1,14 @@
-# INF141
+# Assignment 4
 
-Left to do:
+##TO DO
 
-  - Optimization
-  - Write answers in answer.txt
-  - Identify subdomains
-  - Testing
- 
+  - Part 1
+  
+  - Part 2
+    - All questions answered, just needs to be tested
+    - Needs to be put in pdf format
+    - PartOne.java answers questions so run to get results
+
+  - Part 3 (Developer)
+
+  - Part 3 (Analyst)
