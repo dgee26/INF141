@@ -61,6 +61,7 @@ public class PartOne {
 				}
 			}
 		}
+		//Categorized by messages in folders labeled sent of inbox
 		System.out.println("Number of sent emails = " + sent);
 		System.out.println("Number of inbox emails = " + inbox);
 	}
