@@ -10,5 +10,8 @@
     - PartOne.java answers questions so run to get results
 
   - Part 3 (Developer)
+    - Not tested yet
+    - Porter algorithm
+    - Filter email header
 
   - Part 3 (Analyst)
