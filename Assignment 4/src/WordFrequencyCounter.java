@@ -30,12 +30,19 @@ public final class WordFrequencyCounter {
 		}
 
 	}
+	
+	public static String[] storeForStemming(String word){
+		String [] sa = new String[501];
+		return sa;
+	}
+	
 	//Does counting frequency too
 	public static TreeMap<String, Integer> tokenizeFile(File input) {
 		TreeMap<String, Integer> map =  new TreeMap<String, Integer>();
-		//List<Frequency> lf = new ArrayList<Frequency>();
+		List<String> lf = Stemmer.stemWords(input);
 		try {
 			Scanner scan = new Scanner(new FileReader(input));  //Creates file scanner
+			scan.useDelimiter("\\W+\\s*|\\s+\\W+|\\_+");
 			while (scan.hasNext()){
 				String s = scan.next();     					//Gets next string
 				s = s.replaceAll("[^a-zA-Z0-9]","");
@@ -101,7 +108,7 @@ public final class WordFrequencyCounter {
 		return maps;
 	}
 	public static boolean notStopWord(String s){
-		File file = new File("StopWords.txt");
+		File file = new File("C:/Users/Dillon/workspace3/Assignment 4/src/StopWords.txt");
 		try {
 			Scanner scan = new Scanner(new FileReader(file));
 			while(scan.hasNext()){
@@ -121,6 +128,11 @@ public final class WordFrequencyCounter {
 		return true;
 	}
 
+	public static void main(String[] args){
+		/*File file = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testfolder/criminals/inbox/1");
+		TreeMap<String, List<Integer>> tm = getWordPositions(file);*/
+		
+	}
 
 }
 

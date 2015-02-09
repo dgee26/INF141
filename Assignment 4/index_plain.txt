@@ -1,0 +1,52 @@
+2001	/criminals/inbox/1 : 1 : 147
+enron	/criminals/inbox/1 : 11 : 89, 
+enron	/criminals/inbox/1 : 11 : 89, 100, 
+enron	/criminals/inbox/1 : 11 : 89, 100, 110
+sbaile2	/criminals/inbox/1 : 1 : 57
+subject	/criminals/inbox/1 : 1 : 153
+2001	/criminals/inbox/2 : 2 : 147
+enron	/criminals/inbox/2 : 13 : 89, 
+enron	/criminals/inbox/2 : 13 : 89, 100, 
+enron	/criminals/inbox/2 : 13 : 89, 100, 110
+sbaile2	/criminals/inbox/2 : 1 : 57
+subject	/criminals/inbox/2 : 1 : 153
+attached	/criminals/inbox/3 : 1 : 211, 
+attached	/criminals/inbox/3 : 1 : 211, 232
+b	/criminals/inbox/3 : 1 : 105
+enron	/criminals/inbox/3 : 58 : 89, 
+enron	/criminals/inbox/3 : 58 : 89, 100, 
+enron	/criminals/inbox/3 : 58 : 89, 100, 110
+sbaile2	/criminals/inbox/3 : 2 : 57
+subject	/criminals/inbox/3 : 1 : 153
+2001	/criminals/inbox/4 : 2 : 147
+america	/criminals/inbox/4 : 4 : 168, 
+america	/criminals/inbox/4 : 4 : 168, 200
+assignment	/criminals/inbox/4 : 6 : 135, 
+assignment	/criminals/inbox/4 : 6 : 135, 154, 
+assignment	/criminals/inbox/4 : 6 : 135, 154, 160
+attached	/criminals/inbox/4 : 3 : 211, 
+attached	/criminals/inbox/4 : 3 : 211, 232
+b	/criminals/inbox/4 : 2 : 105
+bank	/criminals/inbox/4 : 4 : 166, 
+bank	/criminals/inbox/4 : 4 : 166, 190, 
+bank	/criminals/inbox/4 : 4 : 166, 190, 198
+breslau	/criminals/inbox/4 : 3 : 151
+craig	/criminals/inbox/4 : 5 : 137, 
+craig	/criminals/inbox/4 : 5 : 137, 152, 
+craig	/criminals/inbox/4 : 5 : 137, 152, 155
+credit	/criminals/inbox/4 : 2 : 41
+deal	/criminals/inbox/4 : 2 : 177
+enron	/criminals/inbox/4 : 12 : 89, 
+enron	/criminals/inbox/4 : 12 : 89, 100, 
+enron	/criminals/inbox/4 : 12 : 89, 100, 110
+file	/criminals/inbox/4 : 2 : 233
+legal	/criminals/inbox/4 : 2 : 46
+like	/criminals/inbox/4 : 2 : 113
+pcs	/criminals/inbox/4 : 4 : 91, 
+pcs	/criminals/inbox/4 : 4 : 91, 93, 
+pcs	/criminals/inbox/4 : 4 : 91, 93, 119
+sbaile2	/criminals/inbox/4 : 3 : 57
+see	/criminals/inbox/4 : 2 : 231
+sent	/criminals/inbox/4 : 2 : 162
+step	/criminals/inbox/4 : 2 : 201
+subject	/criminals/inbox/4 : 2 : 153
