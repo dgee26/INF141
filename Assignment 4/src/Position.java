@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public final class Position {
 	private final String path;
+	//private final String word;
 	private int frequency;
 	private final List<Integer> pos;
 	private String listofPos;
@@ -9,16 +11,22 @@ public final class Position {
 	public Position(String path) {
 		this.frequency = 0;
 		this.path = path;
-		this.pos = null;
+		this.pos = new ArrayList<Integer>();
+		//this.word = word;
 	}
 	
 	public Position(String path, int frequency, List<Integer> pos) {
 		this.pos = pos;
 		this.frequency = frequency;
 		this.path = path;
+		//this.word = word;
 	}
 	
-	public String getWord() {
+	//public String getWord() {
+	//	return word;
+	//}
+	
+	public String getPath() {
 		return path;
 	}
 	
@@ -32,16 +40,7 @@ public final class Position {
 	}
 	
 	public String getPositions() {
-		listofPos = "";
-		for (int i = 0; i<pos.size(); i++){
-			String s = pos.get(i).toString();
-			listofPos = listofPos + s ;
-			int last = pos.size()-1;
-			if(i != last){
-				listofPos = listofPos + ", ";
-			}
-		}
-		return listofPos;
+		return pos.toString();
 	}
 	
 	public void incrementFrequency() {

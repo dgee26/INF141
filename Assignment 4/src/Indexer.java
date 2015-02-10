@@ -12,18 +12,23 @@ import java.util.TreeMap;
 
 public class Indexer {
 
-	private static TreeMap<String, List<Integer>> positions = new TreeMap<String, List<Integer>>();
+	//public static TreeMap<String,List<Position>> indexResults = new TreeMap<String,List<Position>>();
+	public static TreeMap<String,List<Position>> results = new TreeMap<String,List<Position>>();
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		System.out.println("Stars");
 		//File[] files = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir").listFiles();
-		File[] files = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testfolder").listFiles();
+		File[] files = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder").listFiles();
 		fillIndex(files);
+		printIndex(results);
 	}
 	//Go through doc (Get path)
 	//
 
 	public static void fillIndex(File[] files){
+		System.out.println("Starting");
+		
 		//List<TreeMap<String,List<Position>>> results = new ArrayList<TreeMap<String,List<Position>>>();
 		for (File emailDir : files){
 			if (emailDir.isDirectory()){
@@ -34,10 +39,11 @@ public class Indexer {
 						for (File doc : docs){
 							String s = doc.toString();
 							String s2 = s.replace("\\", "/");
-							String path = s2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/testfolder", "");
+							String path = s2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder", "");
 							TreeMap<String,List<Position>> index = WordFrequencyCounter.tokenizeFile(doc, path);
-							printIndex(index);
-							//results.add(index);
+							mergeMaps(index);
+							//putIntoResults(index);
+							//printIndex(index);
 							System.out.println(path);
 						}
 					}
@@ -45,40 +51,47 @@ public class Indexer {
 			}
 		}
 		System.out.println("end");
+	}
+
+	public static void mergeMaps(TreeMap<String,List<Position>> index){
+		for (String s : index.keySet()){
+			if (results.containsKey(s)){
+				List<Position> lp1 = results.get(s);
+				List<Position> lp2 = index.get(s);
+				for (int i = 0; i<lp2.size(); i++){
+					lp1.add(lp2.get(i));
+				}
+			}
+			else{
+				results.put(s, index.get(s));
+			}
+		}
 		//return results;
 	}
-	
-
 	private static void clearFile(File file){
 		file.delete();
 	}
 
 	public static void printIndex(TreeMap<String,List<Position>> map){
 		File file = new File("index_plain.txt");
-		if (file.exists()){
-			clearFile(file);
-		}
-		
+
 		for(String word : map.keySet()){
 			List<Position> lp = map.get(word);
-			String s = word + "\t";
 			for (int i = 0; i<lp.size(); i++){
 				Position p = lp.get(i);
-				s = s + p.toString();
-				int last = lp.size()-1;
-				if(i != last){
-					s = s + "\t";
+				String cleaned = p.getPositions().replace("[", "");
+				cleaned = cleaned.replace("]", "");
+				System.out.println(word + " " + p.getPath() + p.getFrequency() + p.getPositions());
+				String s = word + "\t" + p.getPath() + ":" + p.getFrequency() + ":" + cleaned;	
+				try{
+					Writer pw = new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8");
+					pw.append(s + "\r\n");
+					pw.close();
+				}
+				catch (IOException e) {
+					System.out.println("IOException");
 				}
 			}
-			try{
-				Writer pw = new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8");
-				pw.write(s + "\r\n");
-				pw.close();
-			}
-			catch (IOException e) {
-				System.out.println("IOException");
-			}
 		}
-		
 	}
 }
