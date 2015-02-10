@@ -69,27 +69,27 @@ public final class WordFrequencyCounter {
 							int freq = 1;
 							if (results.containsKey(sa[i])){
 								List<Position> lp = results.get(sa[i]);
-								for (int j=0; j<lp.size(); j++){
-									Position p = lp.get(j);
-									if (path.equals(p.getPath())){
-										p.addPosition(lineNumber);
-										//System.out.println(p.getPositions());
-										p.incrementFrequency();
+								for (int j=0 ; j<lp.size(); j++){
+									Position p1 = lp.get(j);
+									if(!path.equals(p1.getPath())){
+										List<Integer> newPos = new ArrayList<Integer>();
+										newPos.add(lineNumber);
+										Position newAdd = new Position(path, freq, newPos);
+										lp.add(newAdd);
+										break;
 									}
 									else{
-										List<Integer> newPos = new ArrayList<Integer>();
-										Position pos = new Position(path, freq, newPos);
-										pos.addPosition(lineNumber);
-										lp.add(pos);
+										p1.incrementFrequency();
+										p1.addPosition(lineNumber);	
 									}
 								}
+								
 							}
 							else{
-								List<Integer> newPos = new ArrayList<Integer>();
-								//newPos.add(lineNumber);
-								Position p = new Position(path, freq , newPos);
-								p.addPosition(lineNumber);
 								List<Position> lp = new ArrayList<Position>();
+								List<Integer> newPos = new ArrayList<Integer>();
+								newPos.add(lineNumber);
+								Position p = new Position(path, freq , newPos);
 								lp.add(p);
 								results.put(sa[i], lp);
 							}
@@ -141,7 +141,7 @@ public final class WordFrequencyCounter {
 			while(scan.hasNext()){
 				String t = scan.next();
 				//System.out.println(s + ":" + t);
-				if(t.equals(s)){
+				if(s.contains(t)){
 					scan.close();
 					return false;
 				}

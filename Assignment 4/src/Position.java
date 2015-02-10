@@ -40,7 +40,9 @@ public final class Position {
 	}
 	
 	public String getPositions() {
-		return pos.toString();
+		String list = pos.toString().replace("[", "");
+		list = list.replace("]", "");
+		return list;
 	}
 	
 	public void incrementFrequency() {
@@ -49,6 +51,6 @@ public final class Position {
 	
 	@Override
 	public String toString() {
-		return path + " : " + frequency + " : " + listofPos;
+		return path + " : " + frequency + " : " + getPositions();
 	}
 }

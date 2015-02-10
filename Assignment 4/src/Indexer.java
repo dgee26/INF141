@@ -80,10 +80,8 @@ public class Indexer {
 			List<Position> lp = map.get(word);
 			for (int i = 0; i<lp.size(); i++){
 				Position p = lp.get(i);
-				String cleaned = p.getPositions().replace("[", "");
-				cleaned = cleaned.replace("]", "");
 				//System.out.println(word + " " + p.getPath() + p.getFrequency() + p.getPositions());
-				String s = word + "\t" + p.getPath() + ":" + p.getFrequency() + ":" + cleaned;	
+				String s = word + "\t" + p.getPath() + ":" + p.getFrequency() + ":" + p.getPositions();	
 				try{
 					Writer pw = new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8");
 					pw.append(s + "\r\n");

@@ -12,7 +12,3 @@ X-bcc:
 X-Folder: 
 X-Origin: 
 X-FileName: 
----
-cc:
-TO:
-[IMAGE]
