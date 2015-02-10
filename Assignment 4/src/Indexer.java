@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +17,8 @@ public class Indexer {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Stars");
-		//File[] files = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir").listFiles();
-		File[] files = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder").listFiles();
+		//File[] files = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder").listFiles();
+		File[] files = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir").listFiles();
 		fillIndex(files);
 		printIndex(results);
 	}
@@ -39,7 +38,7 @@ public class Indexer {
 						for (File doc : docs){
 							String s = doc.toString();
 							String s2 = s.replace("\\", "/");
-							String path = s2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder", "");
+							String path = s2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir", "");
 							TreeMap<String,List<Position>> index = WordFrequencyCounter.tokenizeFile(doc, path);
 							mergeMaps(index);
 							//putIntoResults(index);
@@ -59,6 +58,8 @@ public class Indexer {
 				List<Position> lp1 = results.get(s);
 				List<Position> lp2 = index.get(s);
 				for (int i = 0; i<lp2.size(); i++){
+					Position p = lp2.get(i);
+					//System.out.println( p.getPath() + p.getFrequency() + p.getPositions());
 					lp1.add(lp2.get(i));
 				}
 			}
@@ -81,7 +82,7 @@ public class Indexer {
 				Position p = lp.get(i);
 				String cleaned = p.getPositions().replace("[", "");
 				cleaned = cleaned.replace("]", "");
-				System.out.println(word + " " + p.getPath() + p.getFrequency() + p.getPositions());
+				//System.out.println(word + " " + p.getPath() + p.getFrequency() + p.getPositions());
 				String s = word + "\t" + p.getPath() + ":" + p.getFrequency() + ":" + cleaned;	
 				try{
 					Writer pw = new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8");

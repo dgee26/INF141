@@ -57,36 +57,44 @@ public final class WordFrequencyCounter {
 		try {
 			BufferedReader br= new BufferedReader(new InputStreamReader(new FileInputStream(input), "UTF-8"));
 			while((line = br.readLine()) != null){
-				System.out.println(line);
+				//System.out.println(line);
 				lineNumber++;
 				String [] sa = line.split("\\W+\\s*|\\s+\\W+|\\_+");
-
-				for (int i = 0; i<sa.length; i++){
-					sa[i] = sa[i].toLowerCase();		 				
-					sa[i] = sa[i].replaceAll("[^a-zA-Z0-9]","");
-					if (!sa[i].equals("")&& notStopWord(sa[i])){
-						int freq = 1;
-						if (results.containsKey(sa[i])){
-							List<Position> lp = results.get(sa[i]);
-							for (int j=0; j<lp.size(); j++){
-								Position p = lp.get(j);
-								if (path.equals(p.getPath())){
-									p.addPosition(lineNumber);
-									System.out.println(p.getPositions());
-									p.incrementFrequency();
+		
+				if(notEmailHeader(line)){
+					for (int i = 0; i<sa.length; i++){
+						sa[i] = sa[i].toLowerCase();		 				
+						sa[i] = sa[i].replaceAll("[^a-zA-Z0-9]","");
+						if (!sa[i].equals("")&& notStopWord(sa[i])){
+							int freq = 1;
+							if (results.containsKey(sa[i])){
+								List<Position> lp = results.get(sa[i]);
+								for (int j=0; j<lp.size(); j++){
+									Position p = lp.get(j);
+									if (path.equals(p.getPath())){
+										p.addPosition(lineNumber);
+										//System.out.println(p.getPositions());
+										p.incrementFrequency();
+									}
+									else{
+										List<Integer> newPos = new ArrayList<Integer>();
+										Position pos = new Position(path, freq, newPos);
+										pos.addPosition(lineNumber);
+										lp.add(pos);
+									}
 								}
 							}
-						}
-						else{
-							List<Integer> newPos = new ArrayList<Integer>();
-							//newPos.add(lineNumber);
-							Position p = new Position(path, freq , newPos);
-							p.addPosition(lineNumber);
-							List<Position> lp = new ArrayList<Position>();
-							lp.add(p);
-							results.put(sa[i], lp);
-						}
-					}	
+							else{
+								List<Integer> newPos = new ArrayList<Integer>();
+								//newPos.add(lineNumber);
+								Position p = new Position(path, freq , newPos);
+								p.addPosition(lineNumber);
+								List<Position> lp = new ArrayList<Position>();
+								lp.add(p);
+								results.put(sa[i], lp);
+							}
+						}	
+					}
 				}
 			}
 			br.close();
@@ -126,10 +134,36 @@ public final class WordFrequencyCounter {
 		return true;
 	}
 
+	public static boolean notEmailHeader(String s){
+		File file = new File("C:/Users/Dillon/workspace3/Assignment 4/src/EmailHeaders.txt");
+		try {
+			Scanner scan = new Scanner(new FileReader(file));
+			while(scan.hasNext()){
+				String t = scan.next();
+				//System.out.println(s + ":" + t);
+				if(t.equals(s)){
+					scan.close();
+					return false;
+				}
+			}
+			scan.close();  
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return true;
+	}
 	public static void main(String[] args) {
 		File file = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder/criminals/inbox/1");
+		File[] files = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder").listFiles();
+		Indexer.fillIndex(files);
 		TreeMap<String, List<Position>> map = tokenizeFile(file, "blacksheep");
+		Indexer.printIndex(Indexer.results);
 		File file1 = new File("index_plain.txt");
+		
+		Indexer.mergeMaps(map);
+		
 
 		for(String word : map.keySet()){
 			List<Position> lp = map.get(word);
