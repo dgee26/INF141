@@ -27,10 +27,24 @@ public class PartOne {
 					if (subFolder.isDirectory()){
 						File[] docs = subFolder.listFiles();
 						for (File doc : docs){
-							f++;
+							if(doc.isDirectory()){
+								File[]d = doc.listFiles();
+								for (File fi : d){
+									f++;
+								}
+							}
+							else{
+								f++;
+							}
 						}
 					}
+					else{
+						f++;
+					}
 				}
+			}
+			else{
+				f++;
 			}
 		}
 		System.out.println("Number of people = " + people);

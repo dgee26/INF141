@@ -52,6 +52,7 @@ public final class WordFrequencyCounter {
 	//Tokenizes words and count word frequencies
 	public static TreeMap<String, List<Position>> tokenizeFile(File input, String path) {
 		TreeMap<String,List<Position>> results = new TreeMap<String,List<Position>>();
+		
 		String line;
 		int lineNumber = 1;
 		try {
@@ -65,11 +66,11 @@ public final class WordFrequencyCounter {
 					for (int i = 0; i<sa.length; i++){
 						sa[i] = sa[i].toLowerCase();		 				
 						sa[i] = sa[i].replaceAll("[^a-zA-Z0-9]","");
-						sa[i] = Stemmer.stemWord(sa[i]);
-						if (!sa[i].equals("")&& notStopWord(sa[i])){
+						String stem = charToStem(sa[i]);
+						if (!stem.equals("")&& notStopWord(stem)){
 							int freq = 1;
-							if (results.containsKey(sa[i])){
-								List<Position> lp = results.get(sa[i]);
+							if (results.containsKey(stem)){
+								List<Position> lp = results.get(stem);
 								for (int j=0 ; j<lp.size(); j++){
 									Position p1 = lp.get(j);
 									if(!path.equals(p1.getPath())){
@@ -113,6 +114,17 @@ public final class WordFrequencyCounter {
 		return results;
 	}
 
+	public static String charToStem(String s){
+		String newString;
+		Stemmer stem = new Stemmer();
+		char[] c = s.toCharArray();
+		for (int i = 0; i<c.length; i++){
+			stem.add(c[i]);
+		}
+		stem.stem();
+		newString = stem.toString();
+		return newString;
+	}
 
 	public static boolean notStopWord(String s){
 		File file = new File("C:/Users/Dillon/workspace3/Assignment 4/src/StopWords.txt");
@@ -156,7 +168,7 @@ public final class WordFrequencyCounter {
 		return true;
 	}
 	public static void main(String[] args) {
-		File file = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder/criminals/inbox/1");
+		/*File file = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder/criminals/inbox/1");
 		File[] files = new File("C:/Users/Dillon/workspace3/enron_mail_20110402/testFolder").listFiles();
 		Indexer.fillIndex(files);
 		TreeMap<String, List<Position>> map = tokenizeFile(file, "blacksheep");
@@ -183,7 +195,7 @@ public final class WordFrequencyCounter {
 					System.out.println("IOException");
 				}
 			}
-		}
+		}*/
 		
 	} 
 

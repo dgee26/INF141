@@ -13,7 +13,7 @@ public class Indexer {
 
 	//public static TreeMap<String,List<Position>> indexResults = new TreeMap<String,List<Position>>();
 	public static TreeMap<String,List<Position>> results = new TreeMap<String,List<Position>>();
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Stars");
@@ -27,32 +27,57 @@ public class Indexer {
 
 	public static TreeMap<String,List<Position>> fillIndex(File[] files){
 		System.out.println("Starting");
-		
-		//List<TreeMap<String,List<Position>>> results = new ArrayList<TreeMap<String,List<Position>>>();
-		for (File emailDir : files){
-			if (emailDir.isDirectory()){
-				File[] subFiles = emailDir.listFiles();
+		for (File userDir : files){
+			if (userDir.isDirectory()){
+				File[] subFiles = userDir.listFiles();
 				for(File subFolder : subFiles){
 					if (subFolder.isDirectory()){
 						File[] docs = subFolder.listFiles();
-						for (File doc : docs){
-							String s = doc.toString();
-							String s2 = s.replace("\\", "/");
-							String path = s2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir", "");
-							results = WordFrequencyCounter.tokenizeFile(doc, path);
-							//mergeMaps(index);
-							//putIntoResults(index);
-							//printIndex(index);
-							System.out.println(path);
+						for(File doc :docs){
+							if(doc.isDirectory()){
+								File[] d = doc.listFiles();
+								for (File f : d){
+									String t = f.toString();
+									String t2 = t.replace("\\", "/");
+									String path = t2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir", "");
+									results = WordFrequencyCounter.tokenizeFile(doc, path);
+									System.out.println(path);
+								}
+							}
+							else{
+								String s = doc.toString();
+								String s2 = s.replace("\\", "/");
+								String path = s2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir", "");
+								results = WordFrequencyCounter.tokenizeFile(doc, path);
+								//mergeMaps(index);
+								//putIntoResults(index);
+								//printIndex(index);
+								System.out.println(path);
+							}
 						}
+					}
+					else{
+						String u = userDir.toString();
+						String u2 = u.replace("\\", "/");
+						String path = u2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir", "");
+						results = WordFrequencyCounter.tokenizeFile(userDir, path);
+						System.out.println(path);
 					}
 				}
 			}
+			else{
+				String u = userDir.toString();
+				String u2 = u.replace("\\", "/");
+				String path = u2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir", "");
+				results = WordFrequencyCounter.tokenizeFile(userDir, path);
+				System.out.println(path);
+			}
+			
 		}
-		System.out.println("end");
+		System.out.println("Finished");
 		return results;
 	}
-
+	
 	public static void mergeMaps(TreeMap<String,List<Position>> index){
 		for (String s : index.keySet()){
 			if (results.containsKey(s)){
@@ -73,10 +98,10 @@ public class Indexer {
 	private static void clearFile(File file){
 		file.delete();
 	}
-
+	
 	public static void printIndex(TreeMap<String,List<Position>> map){
 		File file = new File("index_plain.txt");
-
+	
 		for(String word : map.keySet()){
 			List<Position> lp = map.get(word);
 			for (int i = 0; i<lp.size(); i++){
