@@ -65,6 +65,7 @@ public final class WordFrequencyCounter {
 					for (int i = 0; i<sa.length; i++){
 						sa[i] = sa[i].toLowerCase();		 				
 						sa[i] = sa[i].replaceAll("[^a-zA-Z0-9]","");
+						sa[i] = Stemmer.stemWord(sa[i]);
 						if (!sa[i].equals("")&& notStopWord(sa[i])){
 							int freq = 1;
 							if (results.containsKey(sa[i])){

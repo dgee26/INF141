@@ -25,7 +25,7 @@ public class Indexer {
 	//Go through doc (Get path)
 	//
 
-	public static void fillIndex(File[] files){
+	public static TreeMap<String,List<Position>> fillIndex(File[] files){
 		System.out.println("Starting");
 		
 		//List<TreeMap<String,List<Position>>> results = new ArrayList<TreeMap<String,List<Position>>>();
@@ -39,8 +39,8 @@ public class Indexer {
 							String s = doc.toString();
 							String s2 = s.replace("\\", "/");
 							String path = s2.replace("C:/Users/Dillon/workspace3/enron_mail_20110402/maildir", "");
-							TreeMap<String,List<Position>> index = WordFrequencyCounter.tokenizeFile(doc, path);
-							mergeMaps(index);
+							results = WordFrequencyCounter.tokenizeFile(doc, path);
+							//mergeMaps(index);
 							//putIntoResults(index);
 							//printIndex(index);
 							System.out.println(path);
@@ -50,6 +50,7 @@ public class Indexer {
 			}
 		}
 		System.out.println("end");
+		return results;
 	}
 
 	public static void mergeMaps(TreeMap<String,List<Position>> index){

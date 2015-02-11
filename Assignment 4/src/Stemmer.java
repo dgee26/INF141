@@ -379,28 +379,23 @@ class Stemmer{
 	 * forcing lower case must be done outside the Stemmer class.
 	 * Usage: Stemmer file-name file-name ...
 	 */
-	public static List<String> stemWords(File input){
+	public static String stemWord(String str){
 		char[] w = new char[501];
+		char [] wa = str.toCharArray();
 		Stemmer s = new Stemmer();
-		List<String> list = new ArrayList<String>();
-		try
-		{
-			FileInputStream in = new FileInputStream(input);
-
-			try
-			{ while(true)
-
-			{  int ch = in.read();
-			if (Character.isLetter((char) ch))
-			{
+		
+		for (int i = 0; i<wa.length; i++){
+			char ch = wa[i];
+			if (Character.isLetter(ch)){
 				int j = 0;
-				while(true)
-				{  ch = Character.toLowerCase((char) ch);
-				w[j] = (char) ch;
-				if (j < 500) j++;
-				ch = in.read();
-				if (!Character.isLetter((char) ch))
-				{
+				while(true){  
+					ch = Character.toLowerCase(ch);
+					w[j] = (char) ch;
+					if (j < 500){
+						j++;
+					}
+					ch = wa[i+1];
+					if (!Character.isLetter((char) ch)){
 					/* to test add(char ch) */
 					for (int c = 0; c < j; c++) s.add(w[c]);
 
@@ -412,29 +407,16 @@ class Stemmer{
 
 					/* and now, to test toString() : */
 					u = s.toString();
-
-					/* to test getResultBuffer(), getResultLength() : */
-					/* u = new String(s.getResultBuffer(), 0, s.getResultLength()); */
-					list.add(u);
-					//System.out.print(u);
+					return u;
 					}
-					break;
 				}
 				}
 			}
 			if (ch < 0) break;
-			//System.out.print((char)ch);
-			}
-			}
-			catch (IOException e){  
-				System.out.println("error reading " );
-			}
-			
 		}
-		catch (FileNotFoundException e){  
-			System.out.println("file " +  " not found");
-		}
-		return list;
+		return str;
+		
+		
 	}
 
 
