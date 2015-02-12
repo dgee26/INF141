@@ -66,9 +66,9 @@ public final class WordFrequencyCounter {
 					for (int i = 0; i<sa.length; i++){
 						sa[i] = sa[i].toLowerCase();		 				
 						sa[i] = sa[i].replaceAll("[^a-zA-Z0-9]","");
-						String stem = charToStem(sa[i]);
-						if (!stem.equals("")&& notStopWord(stem)){
+						if (!sa[i].equals("")&& notStopWord(sa[i])){
 							int freq = 1;
+							String stem = charToStem(sa[i]);
 							if (results.containsKey(stem)){
 								Position p = results.get(stem);
 								p.addPosition(lineNumber);
