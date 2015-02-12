@@ -50,8 +50,8 @@ public final class WordFrequencyCounter {
 	}
 
 	//Tokenizes words and count word frequencies
-	public static TreeMap<String, List<Position>> tokenizeFile(File input, String path) {
-		TreeMap<String,List<Position>> results = new TreeMap<String,List<Position>>();
+	public static TreeMap<String, Position> tokenizeFile(File input, String path) {
+		TreeMap<String,Position> results = new TreeMap<String,Position>();
 		
 		String line;
 		int lineNumber = 1;
@@ -70,30 +70,15 @@ public final class WordFrequencyCounter {
 						if (!stem.equals("")&& notStopWord(stem)){
 							int freq = 1;
 							if (results.containsKey(stem)){
-								List<Position> lp = results.get(stem);
-								for (int j=0 ; j<lp.size(); j++){
-									Position p1 = lp.get(j);
-									if(!path.equals(p1.getPath())){
-										List<Integer> newPos = new ArrayList<Integer>();
-										newPos.add(lineNumber);
-										Position newAdd = new Position(path, freq, newPos);
-										lp.add(newAdd);
-										break;
-									}
-									else{
-										p1.incrementFrequency();
-										p1.addPosition(lineNumber);	
-									}
-								}
-								
+								Position p = results.get(stem);
+								p.addPosition(lineNumber);
+								p.incrementFrequency();
 							}
 							else{
-								List<Position> lp = new ArrayList<Position>();
 								List<Integer> newPos = new ArrayList<Integer>();
 								newPos.add(lineNumber);
 								Position p = new Position(path, freq , newPos);
-								lp.add(p);
-								results.put(sa[i], lp);
+								results.put(sa[i], p);
 							}
 						}	
 					}

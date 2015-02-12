@@ -6,7 +6,6 @@ public final class Position {
 	//private final String word;
 	private int frequency;
 	private final List<Integer> pos;
-	private String listofPos;
 	
 	public Position(String path) {
 		this.frequency = 0;
